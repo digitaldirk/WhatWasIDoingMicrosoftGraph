@@ -21,7 +21,9 @@ To run this app clone the repo, then fill in your details in the appsettings.jso
     "CallbackPath": "/signin-oidc"
   }
 ```
-![image](https://user-images.githubusercontent.com/22691956/225529437-4ca394a0-23ca-4265-85ca-37778cc58f07.png)
+
+
+https://user-images.githubusercontent.com/22691956/225822974-b4a77f2c-e780-42d1-a296-2818fcfb381e.mp4
 
 
 [![Hack Together: Microsoft Graph and .NET](https://img.shields.io/badge/Microsoft%20-Hack--Together-orange?style=for-the-badge&logo=microsoft)](https://github.com/microsoft/hack-together)
