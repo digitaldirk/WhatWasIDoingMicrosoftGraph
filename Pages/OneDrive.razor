@@ -9,7 +9,7 @@
 
 @if (RecentOneDriveItems == null)
 {
-  <p><em>Loading...</em></p>
+    <p><em>Loading...</em></p>
 }
 else
 {
@@ -21,21 +21,27 @@ else
     }
     else
     {
-        <table class="table table-striped table-condensed" style="font-family: monospace">
-            <tr>
-                <th>Name</th>
-                <th>Last Modified</th>
-                <th>Modified By</th>
-            </tr>
-            @foreach (var a in RecentOneDriveItems.CurrentPage)
-            {
+        <MudSimpleTable>
+            <thead>
                 <tr>
-                    <td>@a.Name</td>
-                    <td>@a.LastModifiedDateTime</td>
-                    <td>@a.LastModifiedBy</td>
+                    <th>Name</th>
+                    <th>Last Modified</th>
+                    <th>Modified By</th>
+                    <th>Link</th>
                 </tr>
-            }
-        </table>
+            </thead>
+            <tbody>
+                @foreach (var a in RecentOneDriveItems.CurrentPage)
+                {
+                    <tr>
+                        <td>@a.Name</td>
+                        <td>@a.LastModifiedDateTime</td>
+                        <td>@a.LastModifiedBy.User.DisplayName</td>
+                        <td><MudLink Href="@a.WebUrl" Target="_blank" Underline="Underline.Always">Open item</MudLink></td>
+                    </tr>
+                }
+            </tbody>
+        </MudSimpleTable>
     }
 }
 @if (Errored)
@@ -43,19 +49,19 @@ else
     <b>Sorry :( the app errored: @ErrorText</b>
 }
 @code {
-  IDriveRecentCollectionPage RecentOneDriveItems;
+    IDriveRecentCollectionPage RecentOneDriveItems;
     bool Errored = false;
     string ErrorText = string.Empty;
-  protected override async Task OnInitializedAsync()
-  {
-    try
+    protected override async Task OnInitializedAsync()
     {
-      RecentOneDriveItems = await GraphServiceClient.Me.Drive.Recent().Request().Top(20).GetAsync();
-    }
-    catch (Exception ex)
-    {
+        try
+        {
+            RecentOneDriveItems = await GraphServiceClient.Me.Drive.Recent().Request().Top(20).GetAsync();
+        }
+        catch (Exception ex)
+        {
             Errored = true;
             ErrorText = ex.Message;
+        }
     }
-  }
 }

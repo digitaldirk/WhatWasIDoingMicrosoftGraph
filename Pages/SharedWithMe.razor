@@ -21,25 +21,29 @@ else
     }
     else
     {
-        <table class="table table-striped table-condensed" style="font-family: monospace">
-            <tr>
-                <th>Title</th>
-                <th>Type</th>
-                <th>Shared By</th>
-                <th>Shared</th>
-                <th>URL</th>
-            </tr>
-            @foreach (var a in RecentSharedWithMe.CurrentPage)
-            {
+        <MudSimpleTable>
+            <thead>
                 <tr>
-                    <td>@a.ResourceVisualization.Title</td>
-                    <td>@a.ResourceVisualization.Type</td>
-                    <td>@a.LastShared.SharedBy.DisplayName</td>
-                    <td>@a.LastShared.SharedDateTime</td>
-                    <td><link href="@a.ResourceReference.WebUrl" target="_blank" title="open me" /></td>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Shared By</th>
+                    <th>Shared</th>
+                    <th>Link</th>
                 </tr>
-            }
-        </table>
+            </thead>
+            <tbody>
+                @foreach (var a in RecentSharedWithMe.CurrentPage)
+                {
+                    <tr>
+                        <td>@a.ResourceVisualization.Title</td>
+                        <td>@a.ResourceVisualization.Type</td>
+                        <td>@a.LastShared.SharedBy.DisplayName</td>
+                        <td>@a.LastShared.SharedDateTime</td>
+                        <td><MudLink Href="@a.ResourceReference.WebUrl" Target="_blank" Underline="Underline.Always">Open notebook</MudLink></td>
+                    </tr>
+                }
+            </tbody>
+        </MudSimpleTable>
     }
 }
 @if (Errored)
